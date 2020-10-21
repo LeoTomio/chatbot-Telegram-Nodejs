@@ -15,7 +15,11 @@ bot.start(async ctx => {
 const from = ctx.message.from
 from.id = undefined
 console.log(from)
+if(from.username === 'leonardo'){
 await ctx.reply(`Ola ${from.username},o seu nome é : ${from.first_name} ${from.last_name}!`)
+}else{
+    await ctx.reply('Não estou autorizado a conversar com estranhos')
+}
 
 })
 
