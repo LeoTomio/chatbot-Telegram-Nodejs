@@ -1,0 +1,17 @@
+const env = require('./.env')
+const Telegraf = require('telegraf')
+const moment = require('moment')
+const bot = new Telegraf(env.token)
+bot.hears('pizza', ctx => ctx.reply('Quero!'))
+bot.hears(['fígado', 'chuchu'], ctx => ctx.reply('Passo!'))
+bot.hears('🐷', ctx => ctx.reply('Bacon 😋'))
+//Usando expressão regular
+bot.hears(/burguer/i, ctx => ctx.reply('Quero!'))
+bot.hears([/br[ó,o]colis/i , /salada/i], ctx => ctx.reply('Eu também como!'))
+bot.hears(/(\d{2}\/\d{2}\/\d{4})/, ctx => {
+  moment.locale('pt-br')
+  console.log(ctx.match)
+  const data = moment(ctx.match[0], 'DD/MM/YYYY')
+  ctx.reply(`${ctx.match[0]} cai em ${data.format('dddd')}`)
+})
+bot.launch()
